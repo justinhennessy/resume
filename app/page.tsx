@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, Briefcase, Book, Award, FileText, Link } from 'lucide-react'
+import { ChevronDown, ChevronUp, Briefcase, Book, Award, FileText, Link, Maximize2, Minimize2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -21,6 +21,8 @@ interface ExperienceItemProps {
   position: string;
   period: string;
   description: string;
+  link?: string;
+  linkLabel?: string;
   achievements?: string[];
   aiAchievements?: string[];
 }
@@ -47,16 +49,46 @@ export default function Home() {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }))
   }
 
+  const toggleAllSections = (expand: boolean) => {
+    setExpandedSections({
+      experience: expand,
+      publications: expand,
+      qualifications: expand,
+      mlProject: expand
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <header className="bg-blue-600 text-white py-8">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-2">Justin Hennessy</h1>
-          <p className="text-xl">Chief Technical Officer | AI Enablement Specialist</p>
+          <p className="text-xl">Fractional CTO | Coach and Mentor | Tech Co-founder | Content Creator | Musician | Streamer</p>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
+        <div className="flex justify-end mb-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => toggleAllSections(!Object.values(expandedSections).every(Boolean))}
+            className="text-blue-600 hover:text-blue-800 hover:bg-blue-50"
+          >
+            {Object.values(expandedSections).every(Boolean) ? (
+              <>
+                <Minimize2 className="h-4 w-4 mr-2" />
+                Collapse All
+              </>
+            ) : (
+              <>
+                <Maximize2 className="h-4 w-4 mr-2" />
+                Expand All
+              </>
+            )}
+          </Button>
+        </div>
+
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="text-2xl text-blue-600">Professional Summary</CardTitle>
@@ -101,7 +133,7 @@ export default function Home() {
                 company="Recit.app"
                 position="Fractional CTO/Co-Founder"
                 period="Sep 2024 to Present"
-                description="Technical Co-founded Recit, a tool designed to streamline month-end reconciliations for businesses using Xero. Overseeing the Development of features for seamless Xero integration, task allocation, and consistent workflows to improve efficiency and collaboration in accounting teams. Focused on creating an intuitive platform to enhance accuracy and simplify financial close processes."
+                description="Technical Co-founded, Recit is designed to make month-end reconciliation faster and more accurate, reducing the need for double-checking and double-handling. Deeply integrated with Xero, it offers a simple way to standardise workflows, coordinate smoothly across clients, and streamline communication. With Recit, you gain a single lens to view all client data, building an organised structure your clients can rely on as they grow. Not only does it allow you to handle reconciliations quickly with consistent accuracy, but it also provides a workflow that clients can easily pick up as they scale. As Recit evolves, we’re working toward a future where finance teams are seamlessly augmented by AI, with automation taking on repetitive processes and freeing teams to focus on strategy and growth. Recit is building the path to an autonomous future in finance – where streamlined efficiency meets intelligent support."
               />
               <ExperienceItem
                 company="Instaband"
@@ -113,7 +145,9 @@ export default function Home() {
                 company="Accruent"
                 position="Chief Technical Officer, RedEye"
                 period="Dec 2023 to Apr 2024"
-                description="Led technical integration and AI initiatives following RedEye's acquisition."
+                description="Led technical integration following RedEye's acquisition by Accruent, a leading provider of intelligent solutions for the built environment."
+                link="https://www.accruent.com/resources/press-releases/accruent-acquisition-redeye-accelerate-strategy-next-generation"
+                linkLabel="Acquisition announcement"
                 achievements={[
                   "Ran point on all systems and process integrations for Security, IT, Engineering, and Infrastructure.",
                   "Connected all parts of the business, especially Product Engineering."
@@ -152,6 +186,8 @@ export default function Home() {
                 position="Chief Technical Officer, Outfit"
                 period="Sep 2022 to Dec 2022"
                 description="Post-acquisition transitional contract role focusing on systems integration."
+                link="https://www.smartsheet.com/content-center/news/smartsheet-acquires-outfit-bolstering-its-industry-leading-digital-asset"
+                linkLabel="Acquisition announcement"
                 achievements={[
                   "Ran point on all systems and process integrations for Security, IT, Engineering, and Infrastructure.",
                   "Connected all parts of the business, particularly Product Engineering."
@@ -176,6 +212,8 @@ export default function Home() {
                 position="Leadership Mentor"
                 period="May 2018 to Current"
                 description="Volunteer mentoring role focused on technical leadership development."
+                link="https://community.platohq.com/mentors/justin-hennessy"
+                linkLabel="Profile"
                 achievements={[
                   "Mentored numerous technical leaders and the CEO of Plato.",
                   "Assisted the VP of Engineering at SheerID with setting technical vision and direction."
@@ -186,9 +224,11 @@ export default function Home() {
                 position="Chief Technical Officer"
                 period="Jan 2021 to Jul 2021"
                 description="Led technical strategy and team development following acquisition."
+                link="https://www.maropost.com/press/martech-leader-maropost-acquires-e-commerce-platform-neto-for-60m-considerations/"
+                linkLabel="Acquisition announcement"
                 achievements={[
                   "Led Agile transformation for 80+ team members.",
-                  "Integrated a large contingent from India to optimise organisational communication structures.",
+                  "Integrated a large contingent from India to optimise organisational communication structures.", 
                   "Managed a $3M+ platform budget.",
                   "Influenced technical strategy at the executive level."
                 ]}
@@ -399,13 +439,28 @@ function ExperienceItem({
   position,
   period,
   description,
+  link,
+  linkLabel,
   achievements,
   aiAchievements
 }: ExperienceItemProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl text-blue-600">{company}</CardTitle>
+        <CardTitle className="text-xl text-blue-600">
+          {company}
+          {link && (
+            <a 
+              href={link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm text-blue-400 hover:text-blue-600 ml-2 inline-flex items-center"
+            >
+              <Link className="inline h-4 w-4 mr-1" />
+              {linkLabel || 'Read more'}
+            </a>
+          )}
+        </CardTitle>
         <CardDescription>{position} | {period}</CardDescription>
       </CardHeader>
       <CardContent>
