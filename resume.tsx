@@ -5,15 +5,46 @@ import { ChevronDown, ChevronUp, Briefcase, Book, Award, FileText, Link } from '
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
+// Define the valid section names as a type
+type SectionName = 'experience' | 'publications' | 'qualifications' | 'mlProject';
+
+// Define the type for the expanded sections state
+interface ExpandedSections {
+  experience: boolean;
+  publications: boolean;
+  qualifications: boolean;
+  mlProject: boolean;
+}
+
+// Add these interfaces at the top of the file, after the imports
+interface ExperienceItemProps {
+  company: string;
+  position: string;
+  period: string;
+  description: string;
+  achievements?: string[];
+  aiAchievements?: string[];
+}
+
+interface PublicationLink {
+  url: string;
+  text: string;
+}
+
+interface PublicationItemProps {
+  title: string;
+  links: PublicationLink[];
+}
+
 export default function Component() {
-  const [expandedSections, setExpandedSections] = useState({
-    experience: true,
+  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
+    experience: false,
     publications: false,
     qualifications: false,
-    mlProject: false,
-  })
+    mlProject: false
+  });
 
-  const toggleSection = (section: string) => {
+  const toggleSection = (section: SectionName) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }))
   }
 
@@ -364,7 +395,15 @@ export default function Component() {
   )
 }
 
-function ExperienceItem({ company, position, period, description, achievements, aiAchievements }) {
+// Update the ExperienceItem component definition
+function ExperienceItem({
+  company,
+  position,
+  period,
+  description,
+  achievements,
+  aiAchievements
+}: ExperienceItemProps) {
   return (
     <Card>
       <CardHeader>
@@ -398,7 +437,8 @@ function ExperienceItem({ company, position, period, description, achievements, 
   )
 }
 
-function PublicationItem({ title, links }) {
+// Update the PublicationItem component definition
+function PublicationItem({ title, links }: PublicationItemProps) {
   return (
     <Card>
       <CardHeader>
