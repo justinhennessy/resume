@@ -37,6 +37,29 @@ interface PublicationItemProps {
   links: PublicationLink[];
 }
 
+// Add this interface near the top with other interfaces
+interface ResumeData {
+  basics: {
+    name: string;
+    summary: string;
+    email?: string;
+    phone?: string;
+    location?: {
+      city?: string;
+      region?: string;
+    };
+  };
+  work: {
+    company: string;
+    position: string;
+    startDate: string;
+    endDate: string;
+    summary: string;
+    highlights: string[];
+    aiAchievements?: string[];
+  }[];
+}
+
 export default function Home() {
   const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
     experience: false,
@@ -49,12 +72,272 @@ export default function Home() {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }))
   }
 
-  const toggleAllSections = (expand: boolean) => {
+  // Replace the exportToMarkdown function
+  const exportToMarkdown = () => {
+    const resumeData: ResumeData = {
+      basics: {
+        name: "Justin Hennessy",
+        summary: "I am a passionate lifelong learner with a career defined by growth, innovation, and a commitment to empowering others. At the core of my success is a belief that people and their potential drive meaningful outcomes. I specialise in guiding organisations to navigate the transformative possibilities of AI, focusing on ethical adoption, strategic integration, and workforce enablement."
+      },
+      work: [
+        {
+          company: "Intalgo.ai",
+          position: "Co-Founder",
+          startDate: "Apr 2024",
+          endDate: "Present",
+          summary: "An AI enablement consultancy dedicated to helping businesses leverage AI technologies to drive growth and operational efficiency. Focused on developing strategies for ethical AI adoption, workforce enablement, and operational transformation.",
+          highlights: [
+            "Co-developed an AI maturity model to guide organisations in assessing readiness and adopting AI effectively.",
+            "Assessed AI maturity to provide strategic and tactical guidance for organisational growth.",
+            "Delivered AI literacy programs to enhance workforce understanding and adoption of AI tools.",
+            "Built internal expertise and fostered cross-functional collaboration for handling AI projects.",
+            "Developed strategic roadmaps to integrate AI into business operations, ensuring alignment with innovation goals.",
+            "Advocated for ethical AI implementation, focusing on risk mitigation and societal impact.",
+            "Ensured compliance with AI governance standards and regulatory requirements."
+          ]
+        },
+        {
+          company: "Recit.app",
+          position: "Fractional CTO/Co-Founder",
+          startDate: "Sep 2024",
+          endDate: "Present",
+          summary: "Technical Co-founded Recit, a tool designed to streamline month-end reconciliations for businesses using Xero. Overseeing the Development of features for seamless Xero integration, task allocation, and consistent workflows to improve efficiency and collaboration in accounting teams. Focused on creating an intuitive platform to enhance accuracy and simplify financial close processes.",
+          highlights: []
+        },
+        {
+          company: "Instaband",
+          position: "Fractional CTO/Co-Founder",
+          startDate: "Oct 2022",
+          endDate: "Present",
+          summary: "Instaband is an online platform designed to connect musicians, bands, and DJs with event organisers, venues, and individuals. It simplifies the process of discovering, previewing, and booking live music for events, offering artist profiles, audio samples, and direct booking options. Catering to weddings, private parties, corporate events, and live music venues, Instaband empowers users to create memorable experiences with flexible tools and resources for a seamless booking experience.",
+          highlights: []
+        },
+        {
+          company: "Accruent",
+          position: "Chief Technical Officer, RedEye",
+          startDate: "Dec 2023",
+          endDate: "Apr 2024",
+          summary: "Led technical integration and AI initiatives following RedEye's acquisition.",
+          highlights: [
+            "Ran point on all systems and process integrations for Security, IT, Engineering, and Infrastructure.",
+            "Connected all parts of the business, especially Product Engineering."
+          ],
+          aiAchievements: [
+            "Experimented with using LLMs to extract title block information from engineering CAD drawings using OpenAI's vision API.",
+            "Established an AI education program to enhance AI literacy across all staff, with a focus on prompt engineering.",
+            "Initiated and coordinated a cross-company collaboration to explore product innovation using LLMs for semantic search and inference.",
+            "Formed and led a splinter product team to develop and deploy enhancements to RedEye's drawing search capabilities."
+          ]
+        },
+        {
+          company: "RedEye.co",
+          position: "Chief Technical (Product) Officer",
+          startDate: "Dec 2022",
+          endDate: "Dec 2023",
+          summary: "Led RedEye's product and technical strategy, focusing on DevOps maturity and developer experience.",
+          highlights: [
+            "Influenced RedEye's acquisition, due diligence, and closing.",
+            "Oversaw RedEye's product and technical strategy, DevOps maturity, and developer experience.",
+            "Worked with the Chief Data Officer on RedEye's DataOps and Data strategy.",
+            "Coached the CEO on a new vision and mission and helped roll it out.",
+            "Rebooted the executive team from a foundation of trust.",
+            "Delivered all technical and product commitments failed over the previous 4 years.",
+            "Unified Product, Engineering, Platform, and Security under one banner.",
+            "Completed ISO27001 surveillance audit and certification."
+          ],
+          aiAchievements: [
+            "Built and deployed an internal ChatBOT to manage internal product and business information, integrated with Microsoft Teams (leveraging OpenAI's API and local vector storage).",
+            "Designed and implemented process automation augmented with LLM capabilities, including a product feedback system that significantly accelerated the review of customer and business feedback using low/no-code pipeline technology.",
+            "Conducted R&D into using convolutional neural networks for engineering drawing classification.",
+            "Began a deep dive into AI agents, exploring autonomous processes that leverage synthetic reasoning for task completion."
+          ]
+        },
+        {
+          company: "Smartsheet",
+          position: "Chief Technical Officer, Outfit",
+          startDate: "Sep 2022",
+          endDate: "Dec 2022",
+          summary: "Post-acquisition transitional contract role focusing on systems integration.",
+          highlights: [
+            "Ran point on all systems and process integrations for Security, IT, Engineering, and Infrastructure.",
+            "Connected all parts of the business, particularly Product Engineering."
+          ]
+        },
+        {
+          company: "Outfit.io",
+          position: "Chief Technical (Product) Officer",
+          startDate: "Jul 2021",
+          endDate: "Sep 2022",
+          summary: "Led product and engineering functions, driving significant organizational improvements.",
+          highlights: [
+            "Played a pivotal role in Outfit's acquisition, with my leadership team identified as key individuals in the deal.",
+            "Unified Product and Engineering functions into one team.",
+            "Transformed Professional Services into a profitable arm of the company.",
+            "Established a platform team for 'plumbing,' tooling, and automation.",
+            "Facilitated company-wide OKR rollout.",
+            "Completed ISO27001 certification."
+          ]
+        },
+        {
+          company: "Plato (volunteering)",
+          position: "Leadership Mentor",
+          startDate: "May 2018",
+          endDate: "Current",
+          summary: "Volunteer mentoring role focused on technical leadership development.",
+          highlights: [
+            "Mentored numerous technical leaders and the CEO of Plato.",
+            "Assisted the VP of Engineering at SheerID with setting technical vision and direction."
+          ]
+        },
+        {
+          company: "Maropost Inc",
+          position: "Chief Technical Officer",
+          startDate: "Jan 2021",
+          endDate: "Jul 2021",
+          summary: "Led technical strategy and team development following acquisition.",
+          highlights: [
+            "Led Agile transformation for 80+ team members.",
+            "Integrated a large contingent from India to optimise organisational communication structures.",
+            "Managed a $3M+ platform budget.",
+            "Influenced technical strategy at the executive level."
+          ]
+        },
+        {
+          company: "Neto eCommerce",
+          position: "Chief Technical Officer",
+          startDate: "Dec 2014",
+          endDate: "Jan 2021",
+          summary: "Led technical strategy and platform development for a leading eCommerce platform.",
+          highlights: [
+            "Reduced platform COGS by 30%.",
+            "Delivered technical strategies for efficiency and scalability.",
+            "Completed PCI Level 1 compliance projects.",
+            "Built a leadership team focused on technical excellence."
+          ]
+        },
+        {
+          company: "Everyday Hero",
+          position: "Operations Engineer",
+          startDate: "Jan 2011",
+          endDate: "Dec 2014",
+          summary: "Focused on platform migration and infrastructure improvements.",
+          highlights: [
+            "Migrated platforms to AWS and implemented automation strategies.",
+            "Developed Dockerised infrastructure and advanced CI/CD pipelines."
+          ]
+        },
+        {
+          company: "CodeFire",
+          position: "Operations and Project Manager",
+          startDate: "Apr 2008",
+          endDate: "Jan 2011",
+          summary: "Led operations and project management initiatives.",
+          highlights: [
+            "Facilitated Agile adoption within development teams.",
+            "Implemented monitoring solutions and engagement processes."
+          ]
+        },
+        {
+          company: "Comunet Pty Ltd",
+          position: "Senior System Engineer",
+          startDate: "Jul 2005",
+          endDate: "Apr 2008",
+          summary: "Focused on Linux systems and enterprise solutions.",
+          highlights: [
+            "Established the Linux division and implemented high-availability clusters.",
+            "Packaged enterprise monitoring solutions for clients."
+          ]
+        },
+        {
+          company: "City of Mitcham Council",
+          position: "Manager Information Technology",
+          startDate: "Aug 2000",
+          endDate: "Oct 2005",
+          summary: "Managed IT infrastructure and led technological improvements.",
+          highlights: [
+            "Migrated production servers to blade infrastructure.",
+            "Integrated a fibre backbone into networking architecture."
+          ]
+        },
+        {
+          company: "Annesley College",
+          position: "IT Manager",
+          startDate: "Jul 1999",
+          endDate: "Dec 2000",
+          summary: "Managed IT systems for the educational institution.",
+          highlights: [
+            "Successfully implemented Windows NT 4.0 directory services for all departments."
+          ]
+        }
+      ]
+    };
+
+    const markdown = `# ${resumeData.basics.name}
+
+${resumeData.basics.summary}
+
+## Professional Experience
+${resumeData.work.map(job => `
+### ${job.position} at ${job.company}
+${job.startDate} - ${job.endDate}
+
+${job.summary}
+
+Key Achievements:
+${job.highlights.map(highlight => `- ${highlight}`).join('\n')}
+${job.aiAchievements ? `\nAI Achievements:\n${job.aiAchievements.map(achievement => `- ${achievement}`).join('\n')}` : ''}
+`).join('\n')}
+
+## Publications / Case Studies / Interviews
+
+### Professional Blog
+- [Intalgo.ai](https://intalgo.substack.com/)
+- [Personal](https://justinhennessy.substack.com/archive?sort=new)
+- [Personal (Old)](https://justinhennessy.com/blog)
+
+### Guest Speaker
+- [AWS Presentation on Growth Mindset](https://www.youtube.com/watch?v=tsKoWuaGXPk&list=PLP5Q2TkbA7pGtqFqt13U48YoNy57WAMRx)
+
+### Case Studies
+- [Cloudflare](https://www.cloudflare.com/case-studies/neto-leverages-cloudflare-to-secure-and-supercharge-their-ecommerce/)
+- [Datadog](https://www.datadoghq.com/case-studies/neto/)
+
+### Interviews
+- [Devpath.fm](https://www.devpath.fm/episodes/engineering-vp-and-mentor-justin-hennessy)
+- [Taking Control Podcast](https://open.spotify.com/episode/1t630rGsiXWthNjX4EAZlu)
+
+## Professional Qualifications
+
+### Qualifications
+- 2015: Amazon Certified Solutions Architect Associate
+- 2011: Certified Scrum Master
+- 2004: Red Hat Certified Technician (RHCT)
+- 2001: Microsoft Certified System Engineer NT 4.0
+
+### Development
+- 2011-2012: Agile Coaching with Lyssa Adkins
+- 2002: Project Management Theory
+`;
+
+    // Create blob and download
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'resume.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Add this function near your other state functions
+  const expandAll = () => {
     setExpandedSections({
-      experience: expand,
-      publications: expand,
-      qualifications: expand,
-      mlProject: expand
+      experience: true,
+      publications: true,
+      qualifications: true,
+      mlProject: true
     });
   };
 
@@ -66,6 +349,17 @@ export default function Home() {
           <p className="text-xl">Fractional CTO | Coach and Mentor | Tech Co-founder | Content Creator | Musician | Streamer</p>
         </div>
       </header>
+
+      <div className="container mx-auto px-4 py-4 flex justify-end">
+        <Button
+          variant="ghost"
+          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 flex items-center gap-2"
+          onClick={expandAll}
+        >
+          <span className="text-sm">Expand All</span>
+          <ChevronDown className="h-4 w-4" />
+        </Button>
+      </div>
 
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-end mb-4">
@@ -110,7 +404,10 @@ export default function Home() {
               <Briefcase className="mr-2" />
               <h2 className="text-2xl font-semibold">Professional Experience</h2>
             </div>
-            {expandedSections.experience ? <ChevronUp /> : <ChevronDown />}
+            {expandedSections.experience ?
+              <ChevronUp className="text-blue-600" /> :
+              <ChevronDown className="text-blue-600" />
+            }
           </Button>
           {expandedSections.experience && (
             <div className="mt-4 space-y-6">
@@ -228,7 +525,7 @@ export default function Home() {
                 linkLabel="Acquisition announcement"
                 achievements={[
                   "Led Agile transformation for 80+ team members.",
-                  "Integrated a large contingent from India to optimise organisational communication structures.", 
+                  "Integrated a large contingent from India to optimise organisational communication structures.",
                   "Managed a $3M+ platform budget.",
                   "Influenced technical strategy at the executive level."
                 ]}
@@ -246,52 +543,14 @@ export default function Home() {
                 ]}
               />
               <ExperienceItem
-                company="Everyday Hero"
-                position="Operations Engineer"
-                period="Jan 2011 to Dec 2014"
-                description="Focused on platform migration and infrastructure improvements."
+                company="Various Companies"
+                position="IT and Operations Roles"
+                period="Jul 1999 to Dec 2014"
+                description="Held various IT and operations roles, focusing on infrastructure improvements, platform migrations, and project management."
                 achievements={[
-                  "Migrated platforms to AWS and implemented automation strategies.",
-                  "Developed Dockerised infrastructure and advanced CI/CD pipelines."
-                ]}
-              />
-              <ExperienceItem
-                company="CodeFire"
-                position="Operations and Project Manager"
-                period="Apr 2008 to Jan 2011"
-                description="Led operations and project management initiatives."
-                achievements={[
-                  "Facilitated Agile adoption within development teams.",
-                  "Implemented monitoring solutions and engagement processes."
-                ]}
-              />
-              <ExperienceItem
-                company="Comunet Pty Ltd"
-                position="Senior System Engineer"
-                period="Jul 2005 to Apr 2008"
-                description="Focused on Linux systems and enterprise solutions."
-                achievements={[
-                  "Established the Linux division and implemented high-availability clusters.",
-                  "Packaged enterprise monitoring solutions for clients."
-                ]}
-              />
-              <ExperienceItem
-                company="City of Mitcham Council"
-                position="Manager Information Technology"
-                period="Aug 2000 to Oct 2005"
-                description="Managed IT infrastructure and led technological improvements."
-                achievements={[
-                  "Migrated production servers to blade infrastructure.",
-                  "Integrated a fibre backbone into networking architecture."
-                ]}
-              />
-              <ExperienceItem
-                company="Annesley College"
-                position="IT Manager"
-                period="Jul 1999 to Dec 2000"
-                description="Managed IT systems for the educational institution."
-                achievements={[
-                  "Successfully implemented Windows NT 4.0 directory services for all departments."
+                  "Led platform migrations to AWS and implemented automation strategies.",
+                  "Facilitated Agile adoption and developed Dockerised infrastructure.",
+                  "Managed IT infrastructure, including server migrations and network architecture enhancements."
                 ]}
               />
             </div>
@@ -422,6 +681,12 @@ export default function Home() {
             </div>
           )}
         </section>
+
+        <div className="flex gap-4 mt-4">
+          <Button onClick={exportToMarkdown}>
+            Export to Markdown
+          </Button>
+        </div>
       </main>
 
       <footer className="bg-blue-600 text-white py-4 mt-8">
@@ -450,10 +715,10 @@ function ExperienceItem({
         <CardTitle className="text-xl text-blue-600">
           {company}
           {link && (
-            <a 
-              href={link} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-blue-400 hover:text-blue-600 ml-2 inline-flex items-center"
             >
               <Link className="inline h-4 w-4 mr-1" />
