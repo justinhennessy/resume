@@ -216,57 +216,15 @@ export default function Home() {
           ]
         },
         {
-          company: "Everyday Hero",
-          position: "Operations Engineer",
-          startDate: "Jan 2011",
-          endDate: "Dec 2014",
-          summary: "Focused on platform migration and infrastructure improvements.",
-          highlights: [
-            "Migrated platforms to AWS and implemented automation strategies.",
-            "Developed Dockerised infrastructure and advanced CI/CD pipelines."
-          ]
-        },
-        {
-          company: "CodeFire",
-          position: "Operations and Project Manager",
-          startDate: "Apr 2008",
-          endDate: "Jan 2011",
-          summary: "Led operations and project management initiatives.",
-          highlights: [
-            "Facilitated Agile adoption within development teams.",
-            "Implemented monitoring solutions and engagement processes."
-          ]
-        },
-        {
-          company: "Comunet Pty Ltd",
-          position: "Senior System Engineer",
-          startDate: "Jul 2005",
-          endDate: "Apr 2008",
-          summary: "Focused on Linux systems and enterprise solutions.",
-          highlights: [
-            "Established the Linux division and implemented high-availability clusters.",
-            "Packaged enterprise monitoring solutions for clients."
-          ]
-        },
-        {
-          company: "City of Mitcham Council",
-          position: "Manager Information Technology",
-          startDate: "Aug 2000",
-          endDate: "Oct 2005",
-          summary: "Managed IT infrastructure and led technological improvements.",
-          highlights: [
-            "Migrated production servers to blade infrastructure.",
-            "Integrated a fibre backbone into networking architecture."
-          ]
-        },
-        {
-          company: "Annesley College",
-          position: "IT Manager",
+          company: "Various Companies",
+          position: "IT and Operations Roles",
           startDate: "Jul 1999",
-          endDate: "Dec 2000",
-          summary: "Managed IT systems for the educational institution.",
+          endDate: "Dec 2014",
+          summary: "Held various IT and operations roles, focusing on infrastructure improvements, platform migrations, and project management.",
           highlights: [
-            "Successfully implemented Windows NT 4.0 directory services for all departments."
+            "Led platform migrations to AWS and implemented automation strategies.",
+            "Facilitated Agile adoption and developed Dockerised infrastructure.",
+            "Managed IT infrastructure, including server migrations and network architecture enhancements."
           ]
         }
       ]
@@ -331,13 +289,13 @@ ${job.aiAchievements ? `\nAI Achievements:\n${job.aiAchievements.map(achievement
     URL.revokeObjectURL(url);
   };
 
-  // Add this function near your other state functions
-  const expandAll = () => {
+  // Remove the expandAll function and replace with this:
+  const toggleAllSections = (expand: boolean) => {
     setExpandedSections({
-      experience: true,
-      publications: true,
-      qualifications: true,
-      mlProject: true
+      experience: expand,
+      publications: expand,
+      qualifications: expand,
+      mlProject: expand
     });
   };
 
@@ -352,48 +310,26 @@ ${job.aiAchievements ? `\nAI Achievements:\n${job.aiAchievements.map(achievement
 
       <div className="container mx-auto px-4 py-4 flex justify-end">
         <Button
-          variant="ghost"
-          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 flex items-center gap-2"
-          onClick={expandAll}
+          variant="outline"
+          size="sm"
+          onClick={() => toggleAllSections(!Object.values(expandedSections).every(Boolean))}
+          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50"
         >
-          <span className="text-sm">Expand All</span>
-          <ChevronDown className="h-4 w-4" />
+          {Object.values(expandedSections).every(Boolean) ? (
+            <>
+              <Minimize2 className="h-4 w-4 mr-2" />
+              Collapse All
+            </>
+          ) : (
+            <>
+              <Maximize2 className="h-4 w-4 mr-2" />
+              Expand All
+            </>
+          )}
         </Button>
       </div>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="flex justify-end mb-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => toggleAllSections(!Object.values(expandedSections).every(Boolean))}
-            className="text-blue-600 hover:text-blue-800 hover:bg-blue-50"
-          >
-            {Object.values(expandedSections).every(Boolean) ? (
-              <>
-                <Minimize2 className="h-4 w-4 mr-2" />
-                Collapse All
-              </>
-            ) : (
-              <>
-                <Maximize2 className="h-4 w-4 mr-2" />
-                Expand All
-              </>
-            )}
-          </Button>
-        </div>
-
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl text-blue-600">Professional Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-700">
-              I am a passionate lifelong learner with a career defined by growth, innovation, and a commitment to empowering others. At the core of my success is a belief that people and their potential drive meaningful outcomes. I specialise in guiding organisations to navigate the transformative possibilities of AI, focusing on ethical adoption, strategic integration, and workforce enablement. I believe that AI should augment human potential, empowering individuals to focus on high-value activities while driving operational efficiency. My mission in every role is to inspire, support, and align talent and passion with strategic goals, fostering environments where teams thrive and innovation flourishes.
-            </p>
-          </CardContent>
-        </Card>
-
         <section className="mb-8">
           <Button
             variant="ghost"
